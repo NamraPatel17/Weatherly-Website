@@ -1,0 +1,59 @@
+.details-card {
+  background: rgba(255,255,255,0.7);
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 22px 18px 18px 18px;
+  margin-bottom: 18px;
+}
+
+.details-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 0;
+  justify-content: space-between;
+}
+
+.details-item {
+  width: 48%;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.details-label {
+  font-size: 1rem;
+  color: #567;
+  font-weight: 500;
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+
+.details-value {
+  font-size: 1.3rem;
+  color: #234;
+  font-weight: 600;
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(90,79,243,0.06);
+}
+
+.details-item svg {
+  margin-bottom: 4px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.details-bar {
+  width: 80%;
+  height: 6px;
+  background: #e0eafc;
+  border-radius: 4px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.uv-bar > div {
+  height: 100%;
+  background: linear-gradient(90deg, #a0e3ff, #f7b267);
+  border-radius: 4px;
+}

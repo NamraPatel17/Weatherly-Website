@@ -1,0 +1,114 @@
+/* Card Container */
+.weather-header,
+.aqi-card,
+.details-card,
+.forecast-card,
+.fun-facts-card {
+  background: rgba(255,255,255,0.7);
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 22px 18px 18px 18px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+/* Card Title */
+.city-name,
+.aqi-title,
+.details-title,
+.forecast-title,
+.fun-facts-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #234;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* Card Content */
+.weather-desc,
+.weather-range,
+.weather-aqi,
+.aqi-status,
+.details-label,
+.details-value,
+.forecast-day,
+.forecast-temp,
+.fun-facts-content {
+  color: #234;
+}
+
+/* Main Value (like temperature, AQI, etc.) */
+.weather-temp,
+.aqi-value,
+.details-value {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #234;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(90,79,243,0.06);
+}
+
+/* Label */
+.details-label,
+.forecast-day {
+  font-size: 1rem;
+  color: #567;
+  font-weight: 500;
+  margin-bottom: 2px;
+  letter-spacing: 0.5px;
+}
+
+/* Button (for Fun Facts, Search, etc.) */
+.fun-facts-btn,
+.search-btn {
+  background: #234;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 22px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(35,52,52,0.08);
+}
+
+.fun-facts-btn:hover,
+.search-btn:hover {
+  background: #567;
+}
+
+.aqi-card {
+  background: rgba(255,255,255,0.7);
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 22px 18px 18px 18px;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.aqi-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #234;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.aqi-value {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #234;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(90,79,243,0.06);
+}
+
+.aqi-status {
+  color: #234;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: 2px;
+}
