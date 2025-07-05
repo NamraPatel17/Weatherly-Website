@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL = "https://api.openweathermap.org/data/2.5/weather";
-const API_KEY = "822911cb7c9f994306d77b9c2cacd16d";
+const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
 const FORECAST_URL = "https://api.openweathermap.org/data/2.5/forecast";
 const AQI_URL = "https://api.openweathermap.org/data/2.5/air_pollution";
 
