@@ -6,7 +6,8 @@
 .pnp.js
 
 # environment variables
-.env
+.env  
+# This is the file that contains the OpenWeatherMap API key
 
 # testing
 /coverage
