@@ -19,7 +19,6 @@ function App() {
   const [forecast, setForecast] = useState(null);
   const [aqi, setAqi] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
   const [uvIndex, setUvIndex] = useState(null);
   const [savedLocations, setSavedLocations] = useState(() => {
     const saved = localStorage.getItem("weatherly_saved_locations");
@@ -43,7 +42,6 @@ function App() {
     const fetchAll = async () => {
       setLoading(true);
       try {
-        setError("");
         const weatherRes = await fetchWeather(city);
         setWeather(weatherRes.data);
 
@@ -60,7 +58,7 @@ function App() {
         );
         setUvIndex(uvRes.data.current?.uv_index ?? null);
       } catch (err) {
-        setError("City not found. Please try another city.");
+        console.log("City not found. Please try another city.");
       }
       setLoading(false);
     };

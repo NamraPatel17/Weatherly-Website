@@ -32,8 +32,6 @@ function WeatherDetails({ weather, loading, uvIndex, units }) {
 
   // OpenWeatherMap's free API does not provide UV index directly.
   // We'll show "Weak" as a placeholder for UV, or you can fetch from another API if needed.
-  const uv = "Weak";
-  const uvValue = 2;
 
   return (
     <div className="details-card">
