@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchWeather, fetchForecast, fetchAQI } from "./api";
+import { fetchWeather, fetchForecast, fetchAQI, fetchWeatherByCoords } from "./api";
 import WeatherHeader from "./components/WeatherHeader";
 import Forecast from "./components/Forecast";
 import WeatherDetails from "./components/WeatherDetails";
@@ -13,13 +13,14 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 
 function App() {
-  const [city, setCity] = useState("Gajan");
-  const [input, setInput] = useState(city);
+  const [city, setCity] = useState("");
+  const [input, setInput] = useState("");
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState(null);
   const [aqi, setAqi] = useState(null);
   const [loading, setLoading] = useState(true);
   const [uvIndex, setUvIndex] = useState(null);
+  const [locationDetecting, setLocationDetecting] = useState(true);
   const [savedLocations, setSavedLocations] = useState(() => {
     const saved = localStorage.getItem("weatherly_saved_locations");
     return saved ? JSON.parse(saved) : [];
@@ -30,6 +31,45 @@ function App() {
     return saved ? JSON.parse(saved) : { temp: "C", wind: "kmh" };
   });
 
+  // Get user's current location on first load
+  useEffect(() => {
+    const getCurrentLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            try {
+              // Fetch weather by coordinates
+              const weatherRes = await fetchWeatherByCoords(latitude, longitude);
+              const cityName = weatherRes.data.name;
+              setCity(cityName);
+              setInput(cityName);
+              setLocationDetecting(false);
+            } catch (error) {
+              console.log("Error getting location weather, using default city");
+              setCity("Gajan");
+              setInput("Gajan");
+              setLocationDetecting(false);
+            }
+          },
+          (error) => {
+            console.log("Location access denied or error, using default city");
+            setCity("Gajan");
+            setInput("Gajan");
+            setLocationDetecting(false);
+          }
+        );
+      } else {
+        console.log("Geolocation not supported, using default city");
+        setCity("Gajan");
+        setInput("Gajan");
+        setLocationDetecting(false);
+      }
+    };
+
+    getCurrentLocation();
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("weatherly_saved_locations", JSON.stringify(savedLocations));
   }, [savedLocations]);
@@ -39,6 +79,8 @@ function App() {
   }, [units]);
 
   useEffect(() => {
+    if (!city || locationDetecting) return; // Don't fetch if city is empty or still detecting location
+    
     const fetchAll = async () => {
       setLoading(true);
       try {
@@ -63,7 +105,7 @@ function App() {
       setLoading(false);
     };
     fetchAll();
-  }, [city]);
+  }, [city, locationDetecting]);
 
   function getBgClass(weather) {
     if (!weather) return "bg-default";
