@@ -34,33 +34,67 @@ function App() {
   // Get user's current location on first load
   useEffect(() => {
     const getCurrentLocation = () => {
+      console.log("Starting location detection...");
+      
       if (navigator.geolocation) {
+        console.log("Geolocation is supported");
+        
+        const options = {
+          enableHighAccuracy: true,
+          timeout: 10000, // 10 seconds timeout
+          maximumAge: 300000 // 5 minutes cache
+        };
+        
         navigator.geolocation.getCurrentPosition(
           async (position) => {
+            console.log("Location obtained:", position.coords);
             const { latitude, longitude } = position.coords;
             try {
               // Fetch weather by coordinates
               const weatherRes = await fetchWeatherByCoords(latitude, longitude);
               const cityName = weatherRes.data.name;
+              console.log("Weather fetched for city:", cityName);
               setCity(cityName);
               setInput(cityName);
               setLocationDetecting(false);
             } catch (error) {
-              console.log("Error getting location weather, using default city");
+              console.log("Error getting location weather:", error);
+              console.log("Using default city: Gajan");
               setCity("Gajan");
               setInput("Gajan");
               setLocationDetecting(false);
             }
           },
           (error) => {
-            console.log("Location access denied or error, using default city");
+            console.log("Geolocation error:", error);
+            console.log("Error code:", error.code);
+            console.log("Error message:", error.message);
+            
+            // Provide specific error messages for mobile
+            switch(error.code) {
+              case error.PERMISSION_DENIED:
+                console.log("Location permission denied by user");
+                break;
+              case error.POSITION_UNAVAILABLE:
+                console.log("Location information unavailable");
+                break;
+              case error.TIMEOUT:
+                console.log("Location request timed out");
+                break;
+              default:
+                console.log("Unknown geolocation error");
+            }
+            
+            console.log("Using default city: Gajan");
             setCity("Gajan");
             setInput("Gajan");
             setLocationDetecting(false);
-          }
+          },
+          options
         );
       } else {
-        console.log("Geolocation not supported, using default city");
+        console.log("Geolocation not supported by browser");
+        console.log("Using default city: Gajan");
         setCity("Gajan");
         setInput("Gajan");
         setLocationDetecting(false);
