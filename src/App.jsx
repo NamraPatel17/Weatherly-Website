@@ -39,14 +39,24 @@ function App() {
       if (navigator.geolocation) {
         console.log("Geolocation is supported");
         
+        // Mobile-optimized options
         const options = {
-          enableHighAccuracy: true,
-          timeout: 10000, // 10 seconds timeout
-          maximumAge: 300000 // 5 minutes cache
+          enableHighAccuracy: false, // Faster on mobile
+          timeout: 5000, // 5 seconds timeout (reduced from 10)
+          maximumAge: 600000 // 10 minutes cache (increased for faster response)
         };
+        
+        // Set a backup timeout for mobile
+        const mobileTimeout = setTimeout(() => {
+          console.log("Mobile timeout - using default city");
+          setCity("Gajan");
+          setInput("Gajan");
+          setLocationDetecting(false);
+        }, 6000); // 6 seconds total timeout
         
         navigator.geolocation.getCurrentPosition(
           async (position) => {
+            clearTimeout(mobileTimeout); // Clear the backup timeout
             console.log("Location obtained:", position.coords);
             const { latitude, longitude } = position.coords;
             try {
@@ -66,6 +76,7 @@ function App() {
             }
           },
           (error) => {
+            clearTimeout(mobileTimeout); // Clear the backup timeout
             console.log("Geolocation error:", error);
             console.log("Error code:", error.code);
             console.log("Error message:", error.message);
